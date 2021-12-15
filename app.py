@@ -2,6 +2,8 @@ import streamlit as st
 import sounddevice as sd
 import wavio
 import threading 
+import logging
+
 
 class StreamLitApp:
   def __init__(self):
@@ -15,7 +17,7 @@ class StreamLitApp:
   def callback(self, indata, frames, time, status):
       if status:
           print(status, file=sys.stderr)
-      print(indata.copy())
+      logging.info(indata.copy())
 
   def record(self):
     with sd.InputStream(samplerate=self.SAMPLE_RATE, channels=self.CHANNELS, callback=self.callback):
